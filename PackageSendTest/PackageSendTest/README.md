@@ -18,14 +18,15 @@ Below is how to use the two scripts using Python
 
 1. Find your IP address.  Under Mac OS X, use ifconfig -a
 2. Edit SendPkgExample.py and ReceivePkgExample.py and substitute in the IP address
-3. In one window, run <pre>python SendPkgExample.py<pre>
-4. In another window, run <pre>python ReceivePkgExample.py<pre>
+3. In one window, run <pre>python SendPkgExample.py</pre>
+4. In another window, run <pre>python ReceivePkgExample.py</pre>
 
 To use the JavaScript version:
+
 1. Find your IP address.  Under Mac OS X, use ifconfig -a
 2. Edit SendPkgExample.js and ReceivePkgExample.py and substitute in the IP address
-3. In one window, run <pre>node SendPkgExample.js<pre>
-4. In another window, run <pre>python ReceivePkgExample.py<pre>
+3. In one window, run <pre>node SendPkgExample.js</pre>
+4. In another window, run <pre>python ReceivePkgExample.py</pre>
 
 
 
