@@ -12,6 +12,8 @@ considered as an Watch emulator here).
 
 * ReceivePkgExample.py listens to the UDP port, receive data and parse the data.
 
+* ReceivePkgExample.py A JavaScript version that reads and parses the data as above.
+
 How to use
 =========
 Below is how to use the two scripts using Python
@@ -24,9 +26,9 @@ Below is how to use the two scripts using Python
 To use the JavaScript version:
 
 1. Find your IP address.  Under Mac OS X, use ifconfig -a
-2. Edit SendPkgExample.js and ReceivePkgExample.py and substitute in the IP address
+2. Edit SendPkgExample.js and ReceivePkgExample.js and substitute in the IP address
 3. In one window, run <pre>node SendPkgExample.js</pre>
-4. In another window, run <pre>python ReceivePkgExample.py</pre>
+4. In another window, run <pre>node ReceivePkgExample.js</pre>
 
 
 
