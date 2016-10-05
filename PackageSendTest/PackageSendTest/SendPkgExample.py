@@ -45,6 +45,8 @@ def int_to_8bytes(n):
     b[6] = n & 0xFF
     n >>= 8
     b[7] = n & 0xFF
+    print "int_to_8bytes: "
+    for c in b: print(c)
     return b
 
 

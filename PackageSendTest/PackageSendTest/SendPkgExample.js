@@ -30,9 +30,9 @@ function int_to_3bytes(n) {
 }
 
 
-/** Convert int to 4 bytes array */
-function int_to_4bytes(n) {
-    var b = new Uint8Array([0, 0, 0, 0]);
+/** Convert int to 8 bytes array */
+function int_to_8bytes(n) {
+    var b = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]);
     b[0] = n & 0xFF;
     n >>= 8;
     b[1] = n & 0xFF;
@@ -40,7 +40,35 @@ function int_to_4bytes(n) {
     b[2] = n & 0xFF;
     n >>= 8;
     b[3] = n & 0xFF;
+    n >>= 8;
+    b[4] = n & 0xFF;
+    n >>= 8;
+    b[5] = n & 0xFF;
+    n >>= 8;
+    b[6] = n & 0xFF;
+    n >>= 8;
+    b[7] = n & 0xFF;
+    console.log("int_to_8bytes: ");
+    console.log(b);
     return b;
+}
+
+// Convert string date time to long int timestamp.
+function string2timestamp(strValue) {
+    try {
+        var d = datetime.datetime.strptime(strValue, "%Y-%m-%d %H:%M:%S.%f")
+        t = d.timetuple()
+        timeStamp = int(time.mktime(t))
+        timeStamp = float(str(timeStamp) + str("%06d" % d.microsecond))/1000
+        return int(timeStamp)
+    } catch (e) {
+        console.log(e);
+        d = datetime.datetime.strptime(strValue, "%Y-%m-%d %H:%M:%S")
+        t = d.timetuple()
+        timeStamp = int(time.mktime(t))
+        timeStamp = float(str(timeStamp) + str("%06d" % d.microsecond))/1000
+        return timeStamp
+    }
 }
 
 // The ip address of the server.
@@ -48,6 +76,7 @@ var UDP_IP = '192.168.1.32';
 
 // The socket port number
 var UDP_PORT = 4567;
+
 
 // package head info -- Device data and Package type
 var DEV_ID = '9096';
@@ -83,27 +112,32 @@ watch_p[3] = DEV_ID.charCodeAt(3);
 watch_p[4] = WATCH_TYPE;
 for(var i = 0; i < 10; i++) {
     var now = Date.now();
-    watch_p[5 + i * 20] = short_to_bytes(accx)[0];
-    watch_p[5 + i * 20 + 1] = short_to_bytes(accx)[1];
-    watch_p[5 + i * 20 + 2] = short_to_bytes(accy)[0];
-    watch_p[5 + i * 20 + 3] = short_to_bytes(accy)[1];
-    watch_p[5 + i * 20 + 4] = short_to_bytes(accz)[0];
-    watch_p[5 + i * 20 + 5] = short_to_bytes(accz)[1];
-    watch_p[5 + i * 20 + 6] = short_to_bytes(gyrx)[0];
-    watch_p[5 + i * 20 + 7] = short_to_bytes(gyrx)[1];
-    watch_p[5 + i * 20 + 8] = short_to_bytes(gyry)[0];
-    watch_p[5 + i * 20 + 9] = short_to_bytes(gyry)[1];
-    watch_p[5 + i * 20 + 10] = short_to_bytes(gyrz)[0];
-    watch_p[5 + i * 20 + 11] = short_to_bytes(gyrz)[1];
-    watch_p[5 + i * 20 + 12] = int_to_3bytes(PPG)[0];
-    watch_p[5 + i * 20 + 13] = int_to_3bytes(PPG)[1];
-    watch_p[5 + i * 20 + 14] = int_to_3bytes(PPG)[2];
-    watch_p[5 + i * 20 + 15] = (HR & 0xFF);
-    watch_p[5 + i * 20 + 16] = int_to_4bytes(now)[0];
-    watch_p[5 + i * 20 + 17] = int_to_4bytes(now)[1];
-    watch_p[5 + i * 20 + 18] = int_to_4bytes(now)[2];
-    watch_p[5 + i * 20 + 19] = int_to_4bytes(now)[3];
+    watch_p[5 + i * 24] = short_to_bytes(accx)[0];
+    watch_p[5 + i * 24 + 1] = short_to_bytes(accx)[1];
+    watch_p[5 + i * 24 + 2] = short_to_bytes(accy)[0];
+    watch_p[5 + i * 24 + 3] = short_to_bytes(accy)[1];
+    watch_p[5 + i * 24 + 4] = short_to_bytes(accz)[0];
+    watch_p[5 + i * 24 + 5] = short_to_bytes(accz)[1];
+    watch_p[5 + i * 24 + 6] = short_to_bytes(gyrx)[0];
+    watch_p[5 + i * 24 + 7] = short_to_bytes(gyrx)[1];
+    watch_p[5 + i * 24 + 8] = short_to_bytes(gyry)[0];
+    watch_p[5 + i * 24 + 9] = short_to_bytes(gyry)[1];
+    watch_p[5 + i * 24 + 10] = short_to_bytes(gyrz)[0];
+    watch_p[5 + i * 24 + 11] = short_to_bytes(gyrz)[1];
+    watch_p[5 + i * 24 + 12] = int_to_3bytes(PPG)[0];
+    watch_p[5 + i * 24 + 13] = int_to_3bytes(PPG)[1];
+    watch_p[5 + i * 24 + 14] = int_to_3bytes(PPG)[2];
+    watch_p[5 + i * 24 + 15] = (HR & 0xFF);
+    watch_p[5 + i * 24 + 16] = int_to_8bytes(now)[0];
+    watch_p[5 + i * 24 + 17] = int_to_8bytes(now)[1];
+    watch_p[5 + i * 24 + 18] = int_to_8bytes(now)[2];
+    watch_p[5 + i * 24 + 19] = int_to_8bytes(now)[3];
+    watch_p[5 + i * 24 + 20] = int_to_8bytes(now)[4];
+    watch_p[5 + i * 24 + 21] = int_to_8bytes(now)[5];
+    watch_p[5 + i * 24 + 22] = int_to_8bytes(now)[6];
+    watch_p[5 + i * 24 + 23] = int_to_8bytes(now)[7];
 }
+
 // Pack the glasses package, assuming that every package contains 10 data samples
 var glass_p = new Uint8Array(105);
 glass_p[0] = DEV_ID.charCodeAt(0);
@@ -113,16 +147,20 @@ glass_p[3] = DEV_ID.charCodeAt(3);
 glass_p[4] = GLASS_TYPE;
 for(var i = 0; i < 10; i++) {
     var now = Date.now();
-    glass_p[5 + i * 10] = short_to_bytes(accx)[0];
-    glass_p[5 + i * 10 + 1] = short_to_bytes(accx)[1];
-    glass_p[5 + i * 10 + 2] = short_to_bytes(accy)[0];
-    glass_p[5 + i * 10 + 3] = short_to_bytes(accy)[1];
-    glass_p[5 + i * 10 + 4] = short_to_bytes(accz)[0];
-    glass_p[5 + i * 10 + 5] = short_to_bytes(accz)[1];
-    glass_p[5 + i * 10 + 6] = int_to_4bytes(now)[0];
-    glass_p[5 + i * 10 + 7] = int_to_4bytes(now)[1];
-    glass_p[5 + i * 10 + 8] = int_to_4bytes(now)[2];
-    glass_p[5 + i * 10 + 9] = int_to_4bytes(now)[3];
+    glass_p[5 + i * 14] = short_to_bytes(accx)[0];
+    glass_p[5 + i * 14 + 1] = short_to_bytes(accx)[1];
+    glass_p[5 + i * 14 + 2] = short_to_bytes(accy)[0];
+    glass_p[5 + i * 14 + 3] = short_to_bytes(accy)[1];
+    glass_p[5 + i * 14 + 4] = short_to_bytes(accz)[0];
+    glass_p[5 + i * 14 + 5] = short_to_bytes(accz)[1];
+    glass_p[5 + i * 14 + 6] = int_to_8bytes(now)[0];
+    glass_p[5 + i * 14 + 7] = int_to_8bytes(now)[1];
+    glass_p[5 + i * 14 + 8] = int_to_8bytes(now)[2];
+    glass_p[5 + i * 14 + 9] = int_to_8bytes(now)[3];
+    glass_p[5 + i * 14 + 10] = int_to_8bytes(now)[4];
+    glass_p[5 + i * 14 + 11] = int_to_8bytes(now)[5];
+    glass_p[5 + i * 14 + 12] = int_to_8bytes(now)[6];
+    glass_p[5 + i * 14 + 13] = int_to_8bytes(now)[7];
 }
 
 // Pack the battery life package.
@@ -158,4 +196,7 @@ setInterval(function() {
         //sock.sendto(battery_p, (UDP_IP, UDP_PORT)) //Send message to UDP port
         sock.send(Buffer.from(battery_p), UDP_PORT, UDP_IP /*, callback */);
     }
+    //if (i % 60 == 0) {
+    //    sock.sendto(Buffer.from(environment_p), (UDP_IP, UDP_PORT))  // send environment data every 1 min
+    //}
 }, 1000);

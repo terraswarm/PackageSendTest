@@ -61,8 +61,8 @@ while True:
             print trans(data[5 + i * 24 + 7], data[5 + i * 24 + 6]) / 10000.0,
             print trans(data[5 + i * 24 + 9], data[5 + i * 24 + 8]) / 10000.0,
             print trans(data[5 + i * 24 + 11], data[5 + i * 24 + 10]) / 10000.0,
-            print (data[5 + i * 20 + 12] | (data[5 + i * 20 + 13] << 8) | (data[5 + i * 20 + 14] << 16)),
-            print data[5 + i * 20 + 15],
+            print (data[5 + i * 24 + 12] | (data[5 + i * 24 + 13] << 8) | (data[5 + i * 24 + 14] << 16)),
+            print data[5 + i * 24 + 15],
             print timestamp2string(bytes2int(data[5 + i * 24 + 16:5 + i * 24 + 24]))
 
     if data[4:5].decode("ascii") == 'g':  # unpack the glass accelerometer data package
