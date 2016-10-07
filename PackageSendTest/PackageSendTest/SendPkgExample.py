@@ -27,7 +27,7 @@ def int_to_3bytes(n):
     return b
 
 
-# convert int to 4 bytes array
+# convert int to 6 bytes array
 def timestamp_2_bytes(n):
     b = bytearray([0, 0, 0, 0, 0, 0])   # init
     milisce = n % 1000
@@ -128,6 +128,10 @@ for i in range(10):
     watch_p[5 + i * 22 + 19] = timestamp_2_bytes(now)[3]
     watch_p[5 + i * 22 + 20] = timestamp_2_bytes(now)[4]
     watch_p[5 + i * 22 + 21] = timestamp_2_bytes(now)[5]
+    # import binascii
+    # print "watch_p: ", watch_p[5+i*22+16:5+i*22+21]
+    # print binascii.hexlify(watch_p[5+i*22+16:5+i*22+18])
+    # print binascii.hexlify(watch_p[5+i*22+16:5+i*22+23])
 
 # pack the glasses acceleration package, assuming that every package contains 10 data samples
 glass_p = bytearray(12 * 10 + 4 + 1)
@@ -138,6 +142,7 @@ glass_p[3] = DEV_ID[3]
 glass_p[4] = GLASS_TYPE
 for i in range(10):
     now = string2timestamp(str(datetime.datetime.now()))
+    # print datetime.datetime.now(), time.clock(), now
     glass_p[5 + i * 12] = short_to_bytes(accx)[0]
     glass_p[5 + i * 12 + 1] = short_to_bytes(accx)[1]
     glass_p[5 + i * 12 + 2] = short_to_bytes(accy)[0]
