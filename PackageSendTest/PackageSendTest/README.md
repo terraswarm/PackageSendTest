@@ -1,6 +1,6 @@
 Moto Watch Gesture Emulator and Receiver
 
-The Moto watch code may be found at https://github.com/Zziwei/GestureUDP.git
+The Moto watch code may be found at https://github.com/terraswarm/GestureUDP
 
 This directory contains scripts that emulate the Moto watch Gesture
 program and a server that receives the data.
