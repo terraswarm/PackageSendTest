@@ -5,6 +5,12 @@
 "use strict";
 var dgram = require('dgram');
 
+// The ip address of the server.
+var UDP_IP = "10.42.0.36";
+
+// The socket port number.
+var UDP_PORT = 4568;
+
 // Convert the 2 bytes data to a integer.
 function trans(a, b) {
     var c = a * Math.pow(2, 8);
@@ -53,11 +59,7 @@ function bytes2float(byte_array) {
     return value;
 }
 
-// The ip address of the server.
-var UDP_IP = "128.32.38.101";
 
-// The socket port number.
-var UDP_PORT = 4567;
 
 //initialize the socket and bind it
 // sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

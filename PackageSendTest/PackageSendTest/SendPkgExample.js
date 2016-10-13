@@ -5,6 +5,13 @@
 "use strict";
 var dgram = require('dgram');
 
+// The ip address of the server.
+var UDP_IP = '10.42.0.36';
+
+// The socket port number
+var UDP_PORT = 4568;
+
+
 /** Convert short int to 2 bytes array.
  */
 function short_to_bytes(n) {
@@ -30,39 +37,39 @@ function int_to_3bytes(n) {
 }
 
 
-/** Convert int to 4 bytes array */
-function int_to_4bytes(n) {
-    var b = new Uint8Array([0, 0, 0, 0]);
-    b[0] = n & 0xFF;
-    n >>= 8;
-    b[1] = n & 0xFF;
-    n >>= 8;
-    b[2] = n & 0xFF;
-    n >>= 8;
-    b[3] = n & 0xFF;
-    return b;
-}
+// /** Convert int to 4 bytes array */
+// function int_to_4bytes(n) {
+//     var b = new Uint8Array([0, 0, 0, 0]);
+//     b[0] = n & 0xFF;
+//     n >>= 8;
+//     b[1] = n & 0xFF;
+//     n >>= 8;
+//     b[2] = n & 0xFF;
+//     n >>= 8;
+//     b[3] = n & 0xFF;
+//     return b;
+// }
 
-/** Convert int to 8 bytes array */
-function int_to_8bytes(n) {
-    var b = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]);
-    b[0] = n & 0xFF;
-    n >>= 8;
-    b[1] = n & 0xFF;
-    n >>= 8;
-    b[2] = n & 0xFF;
-    n >>= 8;
-    b[3] = n & 0xFF;
-    n >>= 8;
-    b[4] = n & 0xFF;
-    n >>= 8;
-    b[5] = n & 0xFF;
-    n >>= 8;
-    b[6] = n & 0xFF;
-    n >>= 8;
-    b[7] = n & 0xFF;
-    return b;
-}
+// /** Convert int to 8 bytes array */
+// function int_to_8bytes(n) {
+//     var b = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0]);
+//     b[0] = n & 0xFF;
+//     n >>= 8;
+//     b[1] = n & 0xFF;
+//     n >>= 8;
+//     b[2] = n & 0xFF;
+//     n >>= 8;
+//     b[3] = n & 0xFF;
+//     n >>= 8;
+//     b[4] = n & 0xFF;
+//     n >>= 8;
+//     b[5] = n & 0xFF;
+//     n >>= 8;
+//     b[6] = n & 0xFF;
+//     n >>= 8;
+//     b[7] = n & 0xFF;
+//     return b;
+// }
 
 // Convert int to 6 bytes array.
 function timestamp_2_bytes(n) {
@@ -82,29 +89,23 @@ function timestamp_2_bytes(n) {
     return b;
 }
 
-// Convert string date time to long int timestamp.
-function string2timestamp(strValue) {
-    try {
-        var d = datetime.datetime.strptime(strValue, "%Y-%m-%d %H:%M:%S.%f")
-        t = d.timetuple()
-        timeStamp = int(time.mktime(t))
-        timeStamp = float(str(timeStamp) + str("%06d" % d.microsecond))/1000
-        return int(timeStamp)
-    } catch (e) {
-        console.log(e);
-        d = datetime.datetime.strptime(strValue, "%Y-%m-%d %H:%M:%S")
-        t = d.timetuple()
-        timeStamp = int(time.mktime(t))
-        timeStamp = float(str(timeStamp) + str("%06d" % d.microsecond))/1000
-        return timeStamp
-    }
-}
-
-// The ip address of the server.
-var UDP_IP = '128.32.38.101';
-
-// The socket port number
-var UDP_PORT = 4567;
+// // Convert string date time to long int timestamp.
+// function string2timestamp(strValue) {
+//     try {
+//         var d = datetime.datetime.strptime(strValue, "%Y-%m-%d %H:%M:%S.%f")
+//         t = d.timetuple()
+//         timeStamp = int(time.mktime(t))
+//         timeStamp = float(str(timeStamp) + str("%06d" % d.microsecond))/1000
+//         return int(timeStamp)
+//     } catch (e) {
+//         console.log(e);
+//         d = datetime.datetime.strptime(strValue, "%Y-%m-%d %H:%M:%S")
+//         t = d.timetuple()
+//         timeStamp = int(time.mktime(t))
+//         timeStamp = float(str(timeStamp) + str("%06d" % d.microsecond))/1000
+//         return timeStamp
+//     }
+// }
 
 
 // package head info -- Device data and Package type
