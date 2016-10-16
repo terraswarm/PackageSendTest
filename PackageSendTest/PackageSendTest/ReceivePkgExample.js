@@ -6,11 +6,10 @@
 var dgram = require('dgram');
 
 // The ip address of the server.
-var UDP_IP = "10.42.0.36";
+var UDP_IP = '10.42.0.255';
 
 // The socket port number.
 var UDP_PORT = 4568;
-
 // Convert the 2 bytes data to a integer.
 function trans(a, b) {
     var c = a * Math.pow(2, 8);
@@ -67,7 +66,15 @@ var sock = dgram.createSocket('udp4');
 
 sock.on('message', function (data) {
     // Receive the data and parse them and print.
-    if (data.toString("utf-8", 4, 5) === "w") {
+    if (data.toString("utf-8", 4, 5) === "a") {
+        console.log(data.toString("utf-8", 0, 4));
+        console.log(data.toString("utf-8", 4, 5));
+        console.log(data);
+        console.log(data.slice(1+ 4 + 6,17));
+        console.log(bytes2float(data.slice(1+ 4 + 6,17)));
+        console.log(timestamp2string(bytes2float(data.slice(1+ 4 + 6,17))));
+    }
+    if (data.toString("utf-8", 4, 5) === "w") {7
         console.log(data.toString("utf-8", 0, 4));
         console.log(data.toString("utf-8", 4, 5));
         for(var i = 0; i < 10; i++) {
@@ -84,12 +91,12 @@ sock.on('message', function (data) {
     } else if (data.toString("utf-8", 4, 5) === "g") {
         console.log(data.toString("utf-8", 0, 4));
         console.log(data.toString("utf-8", 4, 5));
-        for(var i = 0; i < 10; i++) {
-            console.log(trans(data[5 + i * 12 + 1], data[5 + i * 12]) / 10000.0 + " " +
-                        trans(data[5 + i * 12 + 3], data[5 + i * 12 + 2]) / 10000.0 + " " +
-                        trans(data[5 + i * 12 + 5], data[5 + i * 12 + 4]) / 10000.0 + " " +
-                        timestamp2string(bytes2float(data.slice(5 + i * 12 + 6, 5 + i * 12 + 12 + 1))));
-        }
+        // for(var i = 0; i < 10; i++) {
+        //     console.log(trans(data[5 + i * 12 + 1], data[5 + i * 12]) / 10000.0 + " " +
+        //                 trans(data[5 + i * 12 + 3], data[5 + i * 12 + 2]) / 10000.0 + " " +
+        //                 trans(data[5 + i * 12 + 5], data[5 + i * 12 + 4]) / 10000.0 + " " +
+        //                 timestamp2string(bytes2float(data.slice(5 + i * 12 + 6, 5 + i * 12 + 12 + 1))));
+        // }
     } else if (data.toString("utf-8", 4, 5) === "b") {
         console.log(data.toString("utf-8", 0, 4));
         console.log(data.toString("utf-8", 4, 5));
